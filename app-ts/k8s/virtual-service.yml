@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+
+metadata:
+  name: app-sevice-mesh-routes
+
+spec:
+  hosts:
+    - app-service-mesh-svc.app.svc.cluster.local
+  http:
+    - fault:
+        # delay:
+        #   fixedDelay: 1s
+        #   percentage:
+        #     value: 10
+        abort:
+          httpStatus: 504
+          percentage:
+            value: 10
+      route:  
+        - destination:
+            host: app-service-mesh-svc.app-svc.cluster.local
+            subset: V1
+
+
+  # - name: "app-service-mesh-v2"
+  #   match:
+  #   - uri:
+  #       prefix: "/teste"
+  #   rewrite:
+  #     uri: "/healthz"
+  #   route:
+  #     - destination:
+  #         host: app-service-mesh-svc.app-svc.cluster.local
+  #         subset: V2
+  # - name: "app-service-mesh-v1"
+  #   route:
+  #   - destination:
+  #       host: app-service-mesh-svc.app.svc.cluster.local
+  #       subset: V1
+
+    # - route:
+    #   - destination:
+    #       host: app-service-mesh-svc.app.svc.cluster.local
+    #       subset: V1 
+    #     weight: 80
+    #   - destination:
+    #       host: app-service-mesh-svc.app.svc.cluster.local
+    #       subset: V2
+    #     weight: 20
