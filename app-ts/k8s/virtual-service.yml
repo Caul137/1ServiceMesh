@@ -19,12 +19,12 @@ spec:
         #     value: 10
       route:  
       - destination:
-          host: app-service-mesh-svc.app-svc.cluster.local
+          host: app-service-mesh-svc.app.svc.cluster.local
           subset: V1
       retries:
         attempts: 2
-        perTryTimeout: 1.5s
-      timeout: 0.3s
+        perTryTimeout: 0.5s
+      timeout: 1s
 
   # - name: "app-service-mesh-v2"
   #   match:
