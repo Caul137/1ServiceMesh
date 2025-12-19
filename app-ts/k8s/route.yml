@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+
+metadata:
+  name: app-service-mesh-route
+
+spec:
+  parentRefs:
+    - name: app-service-mesh-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /healthz
+      backendRefs:
+        - name: app-service-mesh-svc
+          port: 80
